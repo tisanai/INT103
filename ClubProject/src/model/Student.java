@@ -1,14 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
-/**
- *
- * @author Umaporn
- */
 public class Student {
     private long studentId;
     private String firstname;
@@ -22,9 +12,11 @@ public class Student {
         this.department = department;
     }
 
-    public Student(Student std){
-        this(std.getStudentId(), std.getFirstname(), std.getLastname(), std.getDepartment());
+    public Student(long studentId){
+        this(studentId, null, null, null);
     }
+    
+
     public long getStudentId() {
         return studentId;
     }
@@ -53,8 +45,6 @@ public class Student {
         this.department = department;
     }
 
-  
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -73,14 +63,9 @@ public class Student {
         return true;
     }
 
-    
     @Override
     public String toString() {
         return "studentId=" + studentId + ", firstname=" + firstname + ", lastname=" + lastname + ", department=" + department;
     }
-    
-    
-    
-    
-    
+
 }

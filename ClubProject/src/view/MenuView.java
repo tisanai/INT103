@@ -1,21 +1,61 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.util.Scanner;
-import model.ClubManager;
+import controller.ClubManager;
+import java.util.Objects;
 
-/**
- *
- * @author Umaporn
- */
+
 public class MenuView {
-
+    public static final ClubManager cm = new ClubManager();
+    public static final Scanner sc=new Scanner(System.in);
+    
+    public static void  newClub(){
+        System.out.println("---New Club---");
+        System.out.print("Enter full Club name: ");
+        String fullname = sc.nextLine();
+        System.out.print("Enter short Club name: ");
+        String shortname = sc.nextLine();
+        System.out.print("Enter a maximum members: ");
+        int maxMembers = sc.nextInt();
+        cm.newClub(fullname, shortname, maxMembers);
+    }
+    
+    public static void  subscribe(){
+        System.out.print("Enter Your id: ");
+        long id = sc.nextLong();
+        sc.nextLine();
+        System.out.print("Enter Your firstname: ");
+        String firstname = sc.nextLine();
+        System.out.print("Enter Your lastname: ");
+        String lastname = sc.nextLine();
+        System.out.print("Enter Your department: ");
+        String dep = sc.nextLine();
+        cm.subscribe(id, firstname, lastname, dep);
+    }
+    
+    public static void  editInfo(){
+        System.out.println("---edit info---");
+        System.out.print("Enter Your id: ");
+        long id = sc.nextLong();
+        System.out.print("Enter Your new info [firstname, lastname, department]: ");
+        String firstname = sc.next();
+        String lastname = sc.next();
+        String dep = sc.next();
+        cm.editInfo(id,firstname, lastname, dep);
+    }
+    
+    public static void  unsubscribe(){
+        System.out.println("---unsubscribe---");
+        System.out.print("Enter Your id: ");
+        long id = sc.nextLong();
+        cm.unsubscribe(id);
+    }
+    public static void  listMembers(){
+        cm.listMembers();
+    }
+          
     public static void menu() {
-        ClubManager cm = new ClubManager();
+       // ClubManager cm = new ClubManager();
         int menuId;
         do {
             System.out.println("<<Main Menu>>");
@@ -32,20 +72,20 @@ public class MenuView {
             menuId = sc.nextInt();
             switch (menuId) {
                 case 1:
-                    cm.newClub();
+                    newClub();
                     break;
                 case 2:
-                    cm.subscribe();
+                    subscribe();
                     break;
 
                 case 3:
-                    cm.editInfo();
+                    editInfo();
                     break;
                 case 4:
-                    cm.unsubscribe();
+                    unsubscribe();
                     break;
                 case 5:
-                    cm.listMembers();
+                    listMembers();
                     break;
                 case 6:
                     System.out.println("Good Bye!");
@@ -53,7 +93,7 @@ public class MenuView {
         } while (menuId != 6);
     }
 
-    public static void main(String[] args) {
-        menu();
+    public static void main(String[] args) {         
+       menu();
     }
 }

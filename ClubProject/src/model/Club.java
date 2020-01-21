@@ -1,14 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
-/**
- *
- * @author Umaporn
- */
 public class Club {
 
     private String fullname;
@@ -16,21 +6,25 @@ public class Club {
     private Student[] members;
     private int count;
     private Status status;
-    private static int runningId;
+   
 
-    public Club(String fullname, String shortname, int maxMembers) {
+   public Club(String fullname, String shortname, int maxMembers) {
         this.fullname = fullname;
         this.shortname = shortname;
         this.members = new Student[maxMembers];
         status = Status.OPEN;
     }
 
+   
+    
     public boolean unsubscribe(long id) {
-        Student foundStudent = searchMemberAt(id);
-        if (foundStudent == null) {
+        int foundStudentIndex = searchMemberAt(new Student(id));
+     //   System.out.println("found: "+foundStudent);
+        if (foundStudentIndex == -1) {
             return false;
         }
-        foundStudent = null;
+        members[foundStudentIndex]=null;
+      
         count--;
         status = Status.OPEN;
         return true;
@@ -40,35 +34,42 @@ public class Club {
         if (status.equals(Status.CLOSE) || searchMemberAt(std) != -1) {
             return false;
         }
-        members[count++] = new Student(std);
+        for (int i = 0; i < members.length; i++) {
+            if(members[i]==null){
+                members[i]=std;
+                count++;
+                break;
+            }     
+        }
+        
         if (count >= members.length) {
             status = Status.CLOSE;
         }
         return true;
     }
-    public boolean editInfo(long studentId, String firstName, String lastName, String department){
-        Student foundStudent = searchMemberAt(studentId);
-        if (foundStudent == null) {
+    public boolean editInfo(long studentId, String newFirstName, String newLastName, String newDepartment){
+        int foundStudentIndex = searchMemberAt(new Student(studentId));
+        if (foundStudentIndex == -1) {
             return false;
         }
-        foundStudent.setFirstname(firstName);
-        foundStudent.setLastname(lastName);
-        foundStudent.setDepartment(department);
+        members[foundStudentIndex ].setFirstname(newFirstName);
+        members[foundStudentIndex ].setLastname(newLastName);
+        members[foundStudentIndex ].setDepartment(newDepartment);
         return true;
     }
     
-    public Student searchMemberAt(long id) {
+   /* public Student searchMemberAt(long id) {
         for (int i = 0; i < count; i++) {
             if ((members[i].getStudentId())==(id)) {
                 return members[i];
             }
         }
         return null;
-    }
+    }*/
     
     public int searchMemberAt(Student std) {
-        for (int i = 0; i < count; i++) {
-            if (members[i].equals(std)) {
+        for (int i = 0; i < members.length; i++) {
+            if (members[i]!=null && members[i].equals(std)) {
                 return i;
             }
         }
@@ -79,10 +80,13 @@ public class Club {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("Club Name:" + fullname+ "(" + shortname+")\n");
-        for (int i = 0; i < count; i++) {
-            str.append(members[i]+"\n");
-            
+        for (int i = 0; i < members.length; i++) {
+            if(members[i]!=null){
+               // System.out.println("member: "+members[i]);
+                str.append(members[i]+"\n");
+            }
         }
+        str.append("club member: "+status);
         return str.toString();
     }
 
