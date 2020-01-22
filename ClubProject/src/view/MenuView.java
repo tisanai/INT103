@@ -94,7 +94,7 @@ public class MenuView {
     }
 
     public static void main(String[] args) {   
-       System.out.println("Git Ready");
+       System.out.println("Hello Git");     
        menu();
     }
 }
