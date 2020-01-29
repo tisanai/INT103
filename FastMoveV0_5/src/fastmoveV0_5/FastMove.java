@@ -2,9 +2,6 @@ package fastmoveV0_5;
 
 public class FastMove {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         Vehicle vehicle =new Vehicle(1,"John");
         Job job001=new Job(vehicle);
