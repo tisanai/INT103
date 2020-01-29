@@ -14,7 +14,7 @@
 + deliverNextParcel(): int
 + toString(): String
  */
-package fastmoveV0_5;
+
 
 /**
  *
