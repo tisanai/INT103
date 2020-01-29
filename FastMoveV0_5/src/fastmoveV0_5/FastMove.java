@@ -12,6 +12,7 @@ public class FastMove {
         job001.add(1, 13.658739, 100.494089);
         
         System.out.println(job001);
+        
     }
     
 }
